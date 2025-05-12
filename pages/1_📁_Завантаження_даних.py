@@ -28,7 +28,7 @@ def read_file_content(uploaded_file: io.BytesIO) -> pd.DataFrame:
 required_files_col, optional_files_col = st.columns(2)
 
 with required_files_col:
-    st.subheader("📂 Обов'язкові файли")
+    st.subheader("Обов'язкові файли")
 
     sales_file = st.file_uploader(
         "Завантажте файл продажів (CSV або Excel)",
