@@ -26,6 +26,11 @@ class DataConfig:
     def session_state(self, value: pd.DataFrame) -> None:
         st.session_state[self.key] = value
 
+    @session_state.deleter
+    def session_state(self) -> None:
+        if self.key in st.session_state:
+            del st.session_state[self.key]
+
 
 sales_data = DataConfig(
     key="sales_data",

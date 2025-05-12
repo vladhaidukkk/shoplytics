@@ -52,6 +52,8 @@ with required_files_col:
                 )
         except Exception as err:
             st.error(f"Помилка при читанні файлу: {err}", icon="❌")
+    else:
+        del sales_data.session_state
 
     inventory_file = st.file_uploader(
         "Завантажте файл складських запасів (CSV або Excel)",
@@ -75,6 +77,8 @@ with required_files_col:
                 )
         except Exception as err:
             st.error(f"Помилка при читанні файлу: {err}", icon="❌")
+    else:
+        del inventory_data.session_state
 
 with optional_files_col:
     st.subheader("Опціональні файли")
@@ -101,6 +105,8 @@ with optional_files_col:
                 )
         except Exception as err:
             st.error(f"Помилка при читанні файлу: {err}", icon="❌")
+    else:
+        del customers_data.session_state
 
 # Sample data download section.
 st.divider()
