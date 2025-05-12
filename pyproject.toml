@@ -1,11 +1,7 @@
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
 name = "shoplytics"
 version = "0.1.0"
-package-mode = false
-
-[tool.poetry.dependencies]
-python = "^3.12"
+description = "Interactive business analytics system for small retail of children's and teenage clothing"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["streamlit>=1.45.0"]

@@ -2,13 +2,13 @@
 .DS_Store
 
 ### Python ###
-# Byte-compiled / optimized / DLL files
+# Python-generated files
 __pycache__/
-*.py[cod]
-*$py.class
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
 
-# Environments
-.env/
+# Virtual environments
 .venv/
-env/
-venv/
