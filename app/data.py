@@ -1,15 +1,22 @@
 from dataclasses import dataclass
+from typing import Literal, TypeAlias
 
 import pandas as pd
 import streamlit as st
 
-st.session_state
+ColumnType: TypeAlias = Literal["string", "numeric", "datetime"]
+Column: TypeAlias = tuple[str, ColumnType, dict | None]
+Columns: TypeAlias = list[Column]
 
 
 @dataclass
-class Data:
+class DataConfig:
     key: str
-    columns: list[str]
+    columns: Columns
+
+    @property
+    def column_names(self) -> list[str]:
+        return [col[0] for col in self.columns]
 
     @property
     def session_state(self) -> pd.DataFrame:
@@ -20,17 +27,48 @@ class Data:
         st.session_state[self.key] = value
 
 
-sales_data = Data(
+sales_data = DataConfig(
     key="sales_data",
-    columns=["date", "product_id", "quantity", "price"],
+    columns=[
+        ("date", "datetime", None),
+        ("store", "string", None),
+        ("product_id", "string", None),
+        ("product_name", "string", None),
+        ("category", "string", None),
+        ("size", "string", None),
+        ("gender", "string", None),
+        ("age_group", "string", None),
+        ("quantity", "numeric", {"min": 1}),
+        ("price", "numeric", {"min": 0}),
+        ("cost", "numeric", {"min": 0}),
+        ("revenue", "numeric", {"min": 0}),
+    ],
 )
 
-inventory_data = Data(
+inventory_data = DataConfig(
     key="inventory_data",
-    columns=["product_id", "quantity", "last_updated"],
+    columns=[
+        ("store", "string", None),
+        ("product_id", "string", None),
+        ("product_name", "string", None),
+        ("category", "string", None),
+        ("size", "string", None),
+        ("stock_qty", "numeric", {"min": 0}),
+        ("min_qty", "numeric", {"min": 0}),
+        ("last_updated", "datetime", None),
+    ],
 )
 
-customers_data = Data(
+customers_data = DataConfig(
     key="customers_data",
-    columns=["customer_id", "name"],
+    columns=[
+        ("customer_id", "string", None),
+        ("age", "numeric", {"min": 0}),
+        ("gender", "string", None),
+        ("signup_date", "datetime", None),
+        ("store", "string", None),
+        ("total_orders", "numeric", {"min": 1}),
+        ("total_spent", "numeric", {"min": 0}),
+        ("last_purchase_date", "datetime", None),
+    ],
 )

@@ -9,11 +9,7 @@ from app.data_generators import (
     generate_sample_inventory,
     generate_sample_sales,
 )
-from app.data_validators import (
-    CustomersDataValidator,
-    InventoryDataValidator,
-    SalesDataValidator,
-)
+from app.data_validator import DataValidator
 from app.pages import dashboard_page, upload_page
 
 upload_page.render()
@@ -37,12 +33,12 @@ with required_files_col:
     sales_file = st.file_uploader(
         "Завантажте файл продажів (CSV або Excel)",
         type=["csv", "xlsx"],
-        help=f"Файл повинен містити колонки: {', '.join(sales_data.columns)}",
+        help=f"Файл повинен містити колонки: {', '.join(sales_data.column_names)}",
     )
     if sales_file is not None:
         try:
             sales_df = read_file_content(sales_file)
-            errors = SalesDataValidator(sales_df).validate()
+            errors = DataValidator(sales_df, sales_data).validate()
 
             if not errors:
                 sales_data.session_state = sales_df
@@ -60,12 +56,12 @@ with required_files_col:
     inventory_file = st.file_uploader(
         "Завантажте файл складських запасів (CSV або Excel)",
         type=["csv", "xlsx"],
-        help=f"Файл повинен містити колонки: {', '.join(inventory_data.columns)}",
+        help=f"Файл повинен містити колонки: {', '.join(inventory_data.column_names)}",
     )
     if inventory_file is not None:
         try:
             inventory_df = read_file_content(inventory_file)
-            errors = InventoryDataValidator(inventory_df).validate()
+            errors = DataValidator(inventory_df, inventory_data).validate()
 
             if not errors:
                 inventory_data.session_state = inventory_df
@@ -86,12 +82,12 @@ with optional_files_col:
     customers_file = st.file_uploader(
         "Завантажте файл клієнтів (CSV або Excel)",
         type=["csv", "xlsx"],
-        help=f"Файл повинен містити колонки: {', '.join(customers_data.columns)}",
+        help=f"Файл повинен містити колонки: {', '.join(customers_data.column_names)}",
     )
     if customers_file is not None:
         try:
             customers_df = read_file_content(customers_file)
-            errors = CustomersDataValidator(customers_df).validate()
+            errors = DataValidator(customers_df, customers_data).validate()
 
             if not errors:
                 customers_data.session_state = customers_df
