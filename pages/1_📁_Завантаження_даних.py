@@ -154,12 +154,6 @@ if required_data_loaded:
     st.success(
         "Всі обов'язкові файли завантажено! Можете перейти до аналітики.", icon="✅"
     )
-    st.link_button(
-        "➡️ Перейти до аналітики",
-        dashboard_page.url,
-        use_container_width=True,
-        type="primary",
-    )
 else:
     st.warning(
         (
