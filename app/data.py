@@ -19,8 +19,8 @@ class DataConfig:
         return [col[0] for col in self.columns]
 
     @property
-    def session_state(self) -> pd.DataFrame:
-        return st.session_state[self.key]
+    def session_state(self) -> pd.DataFrame | None:
+        return st.session_state.get(self.key)
 
     @session_state.setter
     def session_state(self, value: pd.DataFrame) -> None:
