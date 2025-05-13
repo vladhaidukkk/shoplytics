@@ -254,12 +254,5 @@ with details_tab:
         use_container_width=True,
     )
 
-    if st.button("📥 Експортувати дані"):
-        csv = filtered_df[columns_to_show].to_csv(index=False)
-        st.download_button(
-            "📥 Завантажити CSV",
-            csv,
-            "sales_analysis.csv",
-            "text/csv",
-            key="download-csv",
-        )
+    csv = filtered_df[columns_to_show].to_csv(index=False).encode("utf-8")
+    st.download_button("📥 Експортувати", csv, "sales_analysis.csv", "text/csv")
